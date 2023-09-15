@@ -1,0 +1,169 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnector
+metadata:
+  name: es-sink-products
+  labels:
+    strimzi.io/cluster: kafka-connect-cluster
+spec:
+  class: io.confluent.connect.elasticsearch.ElasticsearchSinkConnector
+  tasksMax: 1
+  config:
+    topics: "server1.inventory.products"
+    connection.url: "http://elastic-search-es-default:9200"
+    connection.username: "elastic"
+    connection.password: "elastic"
+    key.ignore: "false"
+    type.name: "server1.inventory.products"
+    behavior.on.null.values: "delete"
+    transforms: "unwrap,key"
+    transforms.key.type: "org.apache.kafka.connect.transforms.ExtractField$Key"
+    transforms.key.field: "id"
+    transforms.unwrap.type: "io.debezium.transforms.ExtractNewRecordState"
+    transforms.unwrap.drop.tombstones: "false"
+    transforms.unwrap.delete.handling.mode: "rewrite"
+    key.converter: "io.apicurio.registry.utils.converter.AvroConverter"
+    key.converter.apicurio.registry.url: "http://apicurioregistry-kafkasql-service:8080"
+    key.converter.apicurio.registry.auto-register: "true"
+    key.converter.apicurio.registry.find-latest: "true"
+    value.converter: "io.apicurio.registry.utils.converter.AvroConverter"
+    value.converter.apicurio.registry.url: "http://apicurioregistry-kafkasql-service:8080"
+    value.converter.apicurio.registry.auto-register: "true"
+    value.converter.apicurio.registry.find-latest: "true"
+    schema.name.adjustment.mode: "avro"
+    field.name.adjustment.mode: "avro"
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnector
+metadata:
+  name: es-sink-customers
+  labels:
+    strimzi.io/cluster: kafka-connect-cluster
+spec:
+  class: io.confluent.connect.elasticsearch.ElasticsearchSinkConnector
+  tasksMax: 1
+  config:
+    topics: "server1.inventory.customers"
+    connection.url: "http://elastic-search-es-default:9200"
+    connection.username: "elastic"
+    connection.password: "elastic"
+    key.ignore: "false"
+    type.name: "server1.inventory.customers"
+    behavior.on.null.values: "delete"
+    transforms: "unwrap,key"
+    transforms.key.type: "org.apache.kafka.connect.transforms.ExtractField$Key"
+    transforms.key.field: "id"
+    transforms.unwrap.type: "io.debezium.transforms.ExtractNewRecordState"
+    transforms.unwrap.drop.tombstones: "false"
+    transforms.unwrap.delete.handling.mode: "rewrite"
+    key.converter: "io.apicurio.registry.utils.converter.AvroConverter"
+    key.converter.apicurio.registry.url: "http://apicurioregistry-kafkasql-service:8080"
+    key.converter.apicurio.registry.auto-register: "true"
+    key.converter.apicurio.registry.find-latest: "true"
+    value.converter: "io.apicurio.registry.utils.converter.AvroConverter"
+    value.converter.apicurio.registry.url: "http://apicurioregistry-kafkasql-service:8080"
+    value.converter.apicurio.registry.auto-register: "true"
+    value.converter.apicurio.registry.find-latest: "true"
+    schema.name.adjustment.mode: "avro"
+    field.name.adjustment.mode: "avro"
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnector
+metadata:
+  name: es-sink-orders
+  labels:
+    strimzi.io/cluster: kafka-connect-cluster
+spec:
+  class: io.confluent.connect.elasticsearch.ElasticsearchSinkConnector
+  tasksMax: 1
+  config:
+    topics: "server1.inventory.orders"
+    connection.url: "http://elastic-search-es-default:9200"
+    connection.username: "elastic"
+    connection.password: "elastic"
+    key.ignore: "false"
+    type.name: "server1.inventory.orders"
+    behavior.on.null.values: "delete"
+    transforms: "unwrap,key"
+    transforms.key.type: "org.apache.kafka.connect.transforms.ExtractField$Key"
+    transforms.key.field: "id"
+    transforms.unwrap.type: "io.debezium.transforms.ExtractNewRecordState"
+    transforms.unwrap.drop.tombstones: "false"
+    transforms.unwrap.delete.handling.mode: "rewrite"
+    key.converter: "io.apicurio.registry.utils.converter.AvroConverter"
+    key.converter.apicurio.registry.url: "http://apicurioregistry-kafkasql-service:8080"
+    key.converter.apicurio.registry.auto-register: "true"
+    key.converter.apicurio.registry.find-latest: "true"
+    value.converter: "io.apicurio.registry.utils.converter.AvroConverter"
+    value.converter.apicurio.registry.url: "http://apicurioregistry-kafkasql-service:8080"
+    value.converter.apicurio.registry.auto-register: "true"
+    value.converter.apicurio.registry.find-latest: "true"
+    schema.name.adjustment.mode: "avro"
+    field.name.adjustment.mode: "avro"
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnector
+metadata:
+  name: es-sink-products-on-hand
+  labels:
+    strimzi.io/cluster: kafka-connect-cluster
+spec:
+  class: io.confluent.connect.elasticsearch.ElasticsearchSinkConnector
+  tasksMax: 1
+  config:
+    topics: "server1.inventory.products_on_hand"
+    connection.url: "http://elastic-search-es-default:9200"
+    connection.username: "elastic"
+    connection.password: "elastic"
+    key.ignore: "false"
+    type.name: "server1.inventory.products_on_hand"
+    behavior.on.null.values: "delete"
+    transforms: "unwrap,key"
+    transforms.key.type: "org.apache.kafka.connect.transforms.ExtractField$Key"
+    transforms.key.field: "product_id"
+    transforms.unwrap.type: "io.debezium.transforms.ExtractNewRecordState"
+    transforms.unwrap.drop.tombstones: "false"
+    transforms.unwrap.delete.handling.mode: "rewrite"
+    key.converter: "io.apicurio.registry.utils.converter.AvroConverter"
+    key.converter.apicurio.registry.url: "http://apicurioregistry-kafkasql-service:8080"
+    key.converter.apicurio.registry.auto-register: "true"
+    key.converter.apicurio.registry.find-latest: "true"
+    value.converter: "io.apicurio.registry.utils.converter.AvroConverter"
+    value.converter.apicurio.registry.url: "http://apicurioregistry-kafkasql-service:8080"
+    value.converter.apicurio.registry.auto-register: "true"
+    value.converter.apicurio.registry.find-latest: "true"
+    schema.name.adjustment.mode: "avro"
+    field.name.adjustment.mode: "avro"
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnector
+metadata:
+  name: es-sink-geom
+  labels:
+    strimzi.io/cluster: kafka-connect-cluster
+spec:
+  class: io.confluent.connect.elasticsearch.ElasticsearchSinkConnector
+  tasksMax: 1
+  config:
+    topics: "server1.inventory.geom"
+    connection.url: "http://elastic-search-es-default:9200"
+    connection.username: "elastic"
+    connection.password: "elastic"
+    key.ignore: "false"
+    type.name: "server1.inventory.geom"
+    behavior.on.null.values: "delete"
+    transforms: "unwrap,key"
+    transforms.key.type: "org.apache.kafka.connect.transforms.ExtractField$Key"
+    transforms.key.field: "id"
+    transforms.unwrap.type: "io.debezium.transforms.ExtractNewRecordState"
+    transforms.unwrap.drop.tombstones: "false"
+    transforms.unwrap.delete.handling.mode: "rewrite"
+    key.converter: "io.apicurio.registry.utils.converter.AvroConverter"
+    key.converter.apicurio.registry.url: "http://apicurioregistry-kafkasql-service:8080"
+    key.converter.apicurio.registry.auto-register: "true"
+    key.converter.apicurio.registry.find-latest: "true"
+    value.converter: "io.apicurio.registry.utils.converter.AvroConverter"
+    value.converter.apicurio.registry.url: "http://apicurioregistry-kafkasql-service:8080"
+    value.converter.apicurio.registry.auto-register: "true"
+    value.converter.apicurio.registry.find-latest: "true"
+    schema.name.adjustment.mode: "avro"
+    field.name.adjustment.mode: "avro"
