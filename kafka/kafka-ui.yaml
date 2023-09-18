@@ -5,7 +5,6 @@ metadata:
   labels:
     app: kafka-ui
     app.kubernetes.io/part-of: strimzi-kafka-cluster-ui
-  namespace: current-2023
 spec:
   replicas: 1
   selector:
@@ -26,6 +25,8 @@ spec:
               value: "Current Demo"
             - name: KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS
               value: kafka-cluster-kafka-bootstrap:9092
+            - name: KAFKA_CLUSTERS_0_SCHEMAREGISTRY
+              value: http://apicurioregistry-kafkasql-service:8080/apis/ccompat/v6
           imagePullPolicy: Always
           resources:
             requests:
