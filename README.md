@@ -223,10 +223,11 @@ You should eventually see the following topics created:
 * server1.inventory.products_on_hand
 
 You can click on the topic name followed by clicking the *Messages* tab near the top and see all messages that were published to the topic.
-You will notice these topics have non-readable characters, and that is expected because the data is being written in Avro format, which is a compact, binary-based serialization format.
+In the Filters tab, be sure to use the option *SchemaRegistry* for both the value and the key. This will allow the Kafka UI to deserialize the data and display using the schema associated with that message from the Schema Registry.
 
-Unfortunately, at the time of this demo, the Kafka UI does not support Apicurio as a Serdes option; however, the feature is in the works, and hopefully, this will be added soon.
+Under the scene, for each topic, a new schema has been created for both, the message value and the key value in the Schema Registry which enables powerful features like schema evolution.
 
+This is possible using Apicurio Registry thanks to the Schema Registry compatibility API that enables using tooling like Kafka UI.
 
 #### Sink connector
 
@@ -285,7 +286,7 @@ oc rsh postgres
 To login to the PostgreSQL database, run `psql --user postgres --password postgres`.
 The pasword is `postgres`.
 
-At the SQL terminal, you can execute `select * from inventory.customers`, and you should get the following:
+At the SQL terminal, you can execute `select * from inventory.customers;`, and you should get the following:
 
 ```text
   id  | first_name | last_name |         email         
